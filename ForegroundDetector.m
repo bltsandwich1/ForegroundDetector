@@ -23,6 +23,29 @@
 ## Author: John Moosemiller
 ## Created: 2018-09-01
 
-function retval = ForegroundDetector (input1, input2)
+
+function [ForegroundMask,Composite,SD,FrameCount] = ForegroundDetector (Frame, Sigma, Composite, SD, FrameCount, LearningRate, NumTrainingFrames)
+if FrameCount < NumTrainingFrames
+    Composite(:,:,FrameCount) = Frame;
+    FrameCount=FrameCount+1;
+elseif FrameCount == NumTrainingFrames
+    Composite(:,:,FrameCount) = Frame;
+    SD = std (Composite, 0, 3);
+    FrameCount=FrameCount+1;
+elseif FrameCount > NumTrainingFrames
+    PixelDiff = abs(sum(Composite,3)/NumTrainingFrames-Frame)
+    ForeGroundMask(PixelDiff>SD*Sigma) = 1
+    Composite(:,:,1:NumTrainingFrames-1)=Composite(:,:,2:NumTrainingFrames);
+    Composite(:,:,NumTrainingFrames) = Frame
+    SD = std (Composite, 0, 3);
+    FrameCount=FrameCount+1;
+endif
+
+
+
+
+
+
+
 
 endfunction
