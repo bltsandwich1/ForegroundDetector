@@ -37,7 +37,7 @@ Variables:
 
 ## Usage
 
-[ForegroundMask,Composite,SD,FrameCount] = ForegroundDetector(Frame, Composite, SD, Framecount, LearningRate, NumTrainingFrames)
+[ForegroundMask,Composite,SD,FrameCount] = ForegroundDetector (FrameRed, Sigma, Composite, SD, FrameCount, NumTrainingFrames)
 
 ### Notes on usage
 
@@ -46,16 +46,5 @@ Passing variables in this manner is understandibly slow, and will be eliminated 
 ## Known Issues
 
 - There is no decoupling of the number of training frames and the number of number of frames that contribute to your composite.
-- Noted variable passing in the usage is inefficient
-
-
-
-
-
-
-
-
-
-
-
-
+- Passing Variables to and from the workspace is inefficient as noted above
+- readavi() is broken in octave, feeding images directly works fine.
