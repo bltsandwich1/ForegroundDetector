@@ -25,6 +25,7 @@
 
 
 function [ForegroundMask,Composite,SD,FrameCount] = ForegroundDetector (Frame, Sigma, Composite, SD, FrameCount, NumTrainingFrames)
+disp(FrameCount)
 if FrameCount < NumTrainingFrames
     Composite(:,:,FrameCount) = Frame;
     FrameCount=FrameCount+1;
