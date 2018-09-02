@@ -11,7 +11,7 @@ Variables:
 * NumTrainingFrames = the number of frames that the function will be trained on
 * FrameCount = integer that counts the current frame number
 * SD = calculated SD for each pixel
-* 
+* Composite = an MxNxL variable where L is NumTrainingFrames
 
 ## Structure
 
@@ -40,15 +40,14 @@ Variables:
 
 [ForegroundMask,Composite,SD,FrameCount] = ForegroundDetector(Frame, Composite, SD, Framecount, LearningRate, NumTrainingFrames)
 
-
-
-
 ### Notes on usage
 
 Passing variables in this manner is understandibly slow, and will be eliminated in future versions, however this is easiest for tracking down issues for the time being. The user also has to define all of the input variabels as there are no defaults set. This will also change in future implementations.
 
+## Known Issues
 
-
+- There is no decoupling of the number of training frames and the number of number of frames that contribute to your composite.
+- Noted variable passing in the usage is inefficient
 
 
 
