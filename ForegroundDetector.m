@@ -28,24 +28,19 @@ function [ForegroundMask,Composite,SD,FrameCount] = ForegroundDetector (Frame, S
 if FrameCount < NumTrainingFrames
     Composite(:,:,FrameCount) = Frame;
     FrameCount=FrameCount+1;
+    ForegroundMask=[1];
+    SD=[];
 elseif FrameCount == NumTrainingFrames
     Composite(:,:,FrameCount) = Frame;
-    SD = std (Composite, 0, 3);
+    ForegroundMask=[1];
+    SD = std(Composite, 0, 3);
     FrameCount=FrameCount+1;
 elseif FrameCount > NumTrainingFrames
-    PixelDiff = abs(sum(Composite,3)/NumTrainingFrames-Frame)
-    ForeGroundMask(PixelDiff>SD*Sigma) = 1
+    PixelDiff = abs(sum(Composite,3)/NumTrainingFrames-Frame);
+    ForegroundMask=PixelDiff>SD*Sigma;
     Composite(:,:,1:NumTrainingFrames-1)=Composite(:,:,2:NumTrainingFrames);
-    Composite(:,:,NumTrainingFrames) = Frame
-    SD = std (Composite, 0, 3);
+    Composite(:,:,NumTrainingFrames) = Frame;
+    SD = std(Composite, 0, 3);
     FrameCount=FrameCount+1;
 endif
-
-
-
-
-
-
-
-
 endfunction
