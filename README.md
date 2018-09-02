@@ -7,8 +7,7 @@ This is an implementation of a naiive foreground detection method.
 Variables:
 
 * Sigma = number of standard deviations that a pixel has to differ by in order to be considered in the foreground
-* LearningRate = The weighting that the current frame will have on the "background" composite
-* NumTrainingFrames = the number of frames that the function will be trained on
+* NumTrainingFrames = the number of frames that the function will be trained on, also the number of layers in the composite image
 * FrameCount = integer that counts the current frame number
 * SD = calculated SD for each pixel
 * Composite = an MxNxL variable where L is NumTrainingFrames
