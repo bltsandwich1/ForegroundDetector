@@ -65,19 +65,23 @@ end___loop %end the loop
 
 ```
 
-### Example Code
-[This video](https://www.youtube.com/watch?v=4i_GFrlaStQ) is some decent quality security cam footage. I've used this as 'SC.avi' in the [ForegroundVideoTest.m](ForegroundVideoTest.m) example.
+### Example Code and Benchamarking
+[This video](https://www.youtube.com/watch?v=4i_GFrlaStQ) is some decent quality security cam footage. I've used this as 'SC.avi' in the [ForegroundVideoTest.m](ForegroundVideoTest.m) example. I am not sure *why* but the frames from the avi reader do not pull correctly, so YMMV with the `readavi` code. 
 
 For testing speed it's much more convenient to make up your own images. I've done this in [ForegroundTester.m](ForegroundTester.m).
 
 ```
 %Processor Core i5 - 8600K @3.7GHz
 % 1920 x 1080 simulated frames, pulling the 52nd frame below
-52
+% NumTrainingFrames=10
 ForegroundDetectTime =  0.29223
 FrameGenTime =  0.044679
 ```
 1080p video at ~3FPS seems reasonable for non-multithreaded performance. Will upate for multi-core functionality in the future.
+
+Note that `NumTrainingFrames` and the frame resolution are the 2 largest drivers for performance. RAM becomes a concern if there are too many frames in the buffer, using big arrays might be the solution and may be implemented in the future.
+
+Performace between MATLAB and octave is similar (FWIW Octave is slightly faster) as there are no loops or built-in functions that cause a big time delta.
 
 ### Notes on usage
 
@@ -87,4 +91,4 @@ Passing variables in this manner is understandibly slow, and will be eliminated 
 
 - There is no decoupling of the number of training frames and the number of number of frames that contribute to your composite.
 - Passing Variables to and from the workspace is inefficient as noted above
-- `readavi()` is broken in octave, feeding images directly works fine.
+- `readavi()` is broken in octave (it's possible this is a windows error), feeding images directly works fine.
